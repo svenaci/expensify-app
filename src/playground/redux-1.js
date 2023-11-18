@@ -1,18 +1,43 @@
 import { createStore } from "redux";
 
-const store = createStore((state = { count: 0 }, action) => {
+//Action generators
+const incrementCount = ({ incrementBy = 1 } = {}) => ({
+  type: "INCREMENT",
+  incrementBy: incrementBy,
+});
+
+const decrementCount = ({ decrementBy = 1 } = {}) => ({
+  type: "DECREMENT",
+  decrementBy,
+});
+
+const resetCount = () => ({
+  type: "RESET",
+});
+
+const setCount = ({ count }) => ({
+  type: "SET",
+  count: count,
+});
+
+//Reducers
+
+const countReducers = (state = { count: 0 }, action) => {
+  console.log(action.type);
+
   switch (action.type) {
     case "INCREMENT":
-      const incrementBy =
-        typeof action.incrementBy === "number" ? action.incrementBy : 1;
+      //   const incrementBy =
+      //     typeof action.incrementBy === "number" ? action.incrementBy : 1;
       return {
-        count: state.count + incrementBy,
+        count: state.count + action.incrementBy,
       };
     case "DECREMENT":
-      const decrementby =
-        typeof action.decrementby === "number" ? action.decrementby : 1;
+      //   const decrementby =
+      //     typeof action.decrementby === "number" ? action.decrementby : 1;
+      console.log("here", state);
       return {
-        count: state.count - decrementby,
+        count: state.count - action.decrementby,
       };
     case "SET":
       return {
@@ -25,30 +50,30 @@ const store = createStore((state = { count: 0 }, action) => {
     default:
       return state;
   }
-});
+};
 
-const unsubscribe = store.subscribe(() => {
-  console.log(store.getState());
-});
+//store
+const store = createStore(countReducers);
+
+// const unsubscribe = store.subscribe(() => {
+//   console.log(store.getState());
+// });
 
 //Actions
-store.dispatch({
-  type: "INCREMENT",
-  incrementBy: 5,
-});
+
+store.dispatch(
+  incrementCount({
+    incrementBy: 5,
+  })
+);
+
+store.dispatch(incrementCount());
 
 // unsubscribe();
 
-store.dispatch({
-  type: "RESET",
-});
+store.dispatch(resetCount());
 
-store.dispatch({
-  type: "DECREMENT",
-  decrementby: 10,
-});
+store.dispatch(decrementCount());
+store.dispatch(decrementCount({ decrementBy: 5 }));
 
-store.dispatch({
-  type: "SET",
-  count: 101,
-});
+store.dispatch(setCount({ count: 101 }));
