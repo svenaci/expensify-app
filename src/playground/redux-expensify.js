@@ -17,6 +17,7 @@ const addExpense = ({
     createdAt,
   },
 });
+
 //REMOVE_EXPENSE
 const removeExpense = ({ id } = {}) => ({
   type: "REMOVE_EXPENSE",
