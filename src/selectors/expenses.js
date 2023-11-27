@@ -11,7 +11,6 @@ const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
       return startDateMatch && endDateMatch && textMatch;
     })
     .sort((a, b) => {
-      console.log("a", a.createdAt, "b", b.createdAt);
       if (sortBy === "date") {
         return a.createdAt < b.createdAt ? 1 : -1;
       }
