@@ -1,4 +1,5 @@
 const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
+  console.log("here");
   return expenses
     .filter((expense) => {
       const startDateMatch =
