@@ -3,7 +3,7 @@
 exports[`should render ExpenseList with empty message 1`] = `
 <div>
   <p>
-    Np expenses
+    No expenses
   </p>
 </div>
 `;
@@ -24,7 +24,7 @@ exports[`should render ExpenseList with expenses 1`] = `
     description="Rent"
     id="2"
     key="2"
-    note=""
+    note="payment for the rent"
   />
   <ExpenseListItem
     amount={4500}

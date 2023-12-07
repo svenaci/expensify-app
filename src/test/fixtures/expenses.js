@@ -11,7 +11,7 @@ export default [
   {
     id: "2",
     description: "Rent",
-    note: "",
+    note: "payment for the rent",
     amount: 109500,
     createdAt: moment(0).subtract(4, "days").valueOf(),
   },
