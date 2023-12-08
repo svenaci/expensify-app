@@ -18,6 +18,7 @@ beforeEach(() => {
     />
   );
 });
+
 test("should render EditExpensePage correctly", () => {
   expect(wrapper).toMatchSnapshot();
 });
