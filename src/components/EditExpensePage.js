@@ -24,10 +24,10 @@ export class EditExpensePage extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
   return {
     expense: state.expenses.find((expense) => {
-      return expense.id === this.props.match.params.id;
+      return expense.id === props.match.params.id;
     }),
   };
 };
