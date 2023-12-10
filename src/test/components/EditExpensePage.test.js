@@ -34,5 +34,5 @@ test("should handle remove expense", () => {
   const id = expenses[0].id;
   wrapper.find("button").simulate("click");
   expect(historySpy.push).toHaveBeenCalledWith("/");
-  expect(removeExpenseSpy).toHaveBeenCalledWith({ id: expenses[2].id });
+  expect(removeExpenseSpy).toHaveBeenCalledWith({ id: id });
 });
