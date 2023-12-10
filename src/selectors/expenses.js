@@ -1,7 +1,6 @@
 import moment from "moment";
 
 const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
-  console.log("here");
   return expenses
     .filter((expense) => {
       const createdAtMoment = moment(expense.createdAt);
