@@ -5,7 +5,7 @@ const Header = () => (
   <header className="header">
     <div className="content-container">
       <div className="header__content">
-        <Link className="header__title" to="/" exact={true}>
+        <Link className="header__title" to="/">
           <h1>Expense App</h1>
         </Link>
         {/* <button className="button button--logout">Logout</button> */}
