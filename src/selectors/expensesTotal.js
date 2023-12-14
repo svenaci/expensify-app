@@ -1,5 +1,4 @@
 const getExpensesTotal = (expenses) => {
-  console.log("expenses", expenses);
   return expenses
     .map((expense) => {
       return expense.amount;

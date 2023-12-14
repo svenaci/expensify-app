@@ -1,58 +1,55 @@
-//we do have access to es6 and es7 features depending on how we set up babel. They are ran through our babel setup
+import moment from "moment";
+import {
+  setTextFilter,
+  sortByDate,
+  sortByAmount,
+  setStartDate,
+  setEndDate,
+} from "../../actions/filters.js";
 
-import { addExpense, editExpense, removeExpense } from "../../actions/expenses";
-
-test("should setup remove expense actino object", () => {
-  const action = removeExpense({ id: "123" });
+test("should generate set text filter action object with text value", () => {
+  const text = "random text";
+  const action = setTextFilter(text);
   expect(action).toEqual({
-    type: "REMOVE_EXPENSE",
-    id: "123",
+    type: "SET_TEXT_FILTER",
+    text: text,
   });
 });
 
-test("should setup edit expense action object", () => {
-  const action = editExpense("123", {
-    description: "random text",
-    amount: 170,
-  });
-
+test("should generate set text filter action object with default", () => {
+  const action = setTextFilter();
   expect(action).toEqual({
-    type: "EDIT_EXPENSE",
-    id: "123",
-    updates: {
-      description: "random text",
-      amount: 170,
-    },
+    type: "SET_TEXT_FILTER",
+    text: "",
   });
 });
 
-test("should setup add expense action object with default value", () => {
-  const action = addExpense();
+test("should generate sort by date action object", () => {
+  const action = sortByDate();
   expect(action).toEqual({
-    type: "ADD_EXPENSE",
-    expense: {
-      description: "",
-      note: "",
-      amount: 0,
-      createdAt: 0,
-      id: expect.any(String),
-    },
+    type: "SORT_BY_DATE",
   });
 });
 
-test("should setup add expense action object with provided value", () => {
-  const expenseData = {
-    description: "Rent",
-    amount: 1950,
-    createdAt: 1000,
-    note: "This is for my rent",
-  };
-  const action = addExpense(expenseData);
+test("should generate sort by amount action object", () => {
+  const action = sortByAmount();
   expect(action).toEqual({
-    type: "ADD_EXPENSE",
-    expense: {
-      ...expenseData,
-      id: expect.any(String),
-    },
+    type: "SORT_BY_AMOUNT",
+  });
+});
+
+test("should generate set start date action object", () => {
+  const action = setStartDate(moment(0));
+  expect(action).toEqual({
+    type: "SET_START_DATE",
+    startDate: moment(0),
+  });
+});
+
+test("should generate set end date action object", () => {
+  const action = setEndDate(moment(0));
+  expect(action).toEqual({
+    type: "SET_END_DATE",
+    endDate: moment(0),
   });
 });

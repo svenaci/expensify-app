@@ -15,6 +15,7 @@ exports[`should handle edit expense 1`] = `
     onSubmit={[Function]}
   />
   <button
+    className="button"
     onClick={[Function]}
   >
     Remove
@@ -37,6 +38,7 @@ exports[`should render EditExpensePage correctly 1`] = `
     onSubmit={[Function]}
   />
   <button
+    className="button"
     onClick={[Function]}
   >
     Remove

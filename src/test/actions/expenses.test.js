@@ -1,55 +1,117 @@
-import moment from "moment";
+//we do have access to es6 and es7 features depending on how we set up babel. They are ran through our babel setup
+import configureMockStore from "redux-mock-store";
+import thunk from "redux-thunk";
 import {
-  setTextFilter,
-  sortByDate,
-  sortByAmount,
-  setStartDate,
-  setEndDate,
-} from "../../actions/filters.js";
+  startAddExpense,
+  addExpense,
+  editExpense,
+  removeExpense,
+} from "../../actions/expenses";
+import expenses from "../fixtures/expenses";
+import database, { firebase } from "../../firebase/firebase";
 
-test("should generate set text filter action object with text value", () => {
-  const text = "random text";
-  const action = setTextFilter(text);
+const createMockStore = configureMockStore([thunk]);
+
+test("should setup remove expense actino object", () => {
+  const action = removeExpense({ id: "123" });
   expect(action).toEqual({
-    type: "SET_TEXT_FILTER",
-    text: text,
+    type: "REMOVE_EXPENSE",
+    id: "123",
   });
 });
 
-test("should generate set text filter action object with default", () => {
-  const action = setTextFilter();
+test("should setup edit expense action object", () => {
+  const action = editExpense("123", {
+    description: "random text",
+    amount: 170,
+  });
+
   expect(action).toEqual({
-    type: "SET_TEXT_FILTER",
-    text: "",
+    type: "EDIT_EXPENSE",
+    id: "123",
+    updates: {
+      description: "random text",
+      amount: 170,
+    },
   });
 });
 
-test("should generate sort by date action object", () => {
-  const action = sortByDate();
+// test("should setup add expense action object with default value", () => {
+//   const action = addExpense();
+//   expect(action).toEqual({
+//     type: "ADD_EXPENSE",
+//     expense: {
+//       description: "",
+//       note: "",
+//       amount: 0,
+//       createdAt: 0,
+//       id: expect.any(String),
+//     },
+//   });
+// });
+
+test("should setup add expense action object with provided value", () => {
+  const action = addExpense(expenses[2]);
   expect(action).toEqual({
-    type: "SORT_BY_DATE",
+    type: "ADD_EXPENSE",
+    expense: expenses[2],
   });
 });
 
-test("should generate sort by amount action object", () => {
-  const action = sortByAmount();
-  expect(action).toEqual({
-    type: "SORT_BY_AMOUNT",
-  });
+test("should add expense to database and store", (done) => {
+  const store = createMockStore({});
+  const expenseData = {
+    description: "Rent",
+    amount: 1950,
+    note: "This is for rent",
+    createdAt: 1000,
+  };
+
+  store
+    .dispatch(startAddExpense(expenseData))
+    .then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: "ADD_EXPENSE",
+        expense: {
+          id: expect.any(String),
+          ...expenseData,
+        },
+      });
+
+      return database.ref(`expenses/${actions[0].expense.id}`).once("value");
+    })
+    .then((snapshot) => {
+      expect(snapshot.val()).toEqual(expenseData);
+    });
+  done();
 });
 
-test("should generate set start date action object", () => {
-  const action = setStartDate(moment(0));
-  expect(action).toEqual({
-    type: "SET_START_DATE",
-    startDate: moment(0),
-  });
-});
+test("should add expense woth defaults to database and store", (done) => {
+  const store = createMockStore({});
+  const expenseData = {
+    description: "",
+    amount: 0,
+    note: "",
+    createdAt: 0,
+  };
 
-test("should generate set end date action object", () => {
-  const action = setEndDate(moment(0));
-  expect(action).toEqual({
-    type: "SET_END_DATE",
-    endDate: moment(0),
-  });
+  store
+    .dispatch(startAddExpense({}))
+    .then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: "ADD_EXPENSE",
+        expense: {
+          id: expect.any(String),
+          ...expenseData,
+        },
+      });
+
+      return database.ref(`expenses/${actions[0].expense.id}`).once("value");
+    })
+    .then((snapshot) => {
+      expect(snapshot.val()).toEqual(expenseData);
+    });
+  done();
 });
