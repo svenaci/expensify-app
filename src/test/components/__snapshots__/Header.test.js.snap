@@ -19,6 +19,11 @@ exports[`should render Header 1`] = `
           Expense App
         </h1>
       </Link>
+      <button
+        onClick={[Function]}
+      >
+        Logout
+      </button>
     </div>
   </div>
 </header>
