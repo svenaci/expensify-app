@@ -46,6 +46,7 @@ export const setExpenses = (expenses) => ({
 });
 
 export const startSetExpenses = () => {
+  console.log("set expense");
   return (dispatch) => {
     return database
       .ref("expense")
