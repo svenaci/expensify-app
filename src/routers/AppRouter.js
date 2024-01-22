@@ -5,7 +5,6 @@ import AddExpensePage from "../components/AddExpensePage.js";
 import EditExpensePage from "../components/EditExpensePage.js";
 import ExpenseDashboardPage from "../components/ExpenseDashboardPage.js";
 // import Header from "../components/Header.js";
-import HelpPage from "../components/HelpPage.js";
 import NotFoundPage from "../components/NotFoundPage.js";
 import LoginPage from "../components/LoginPage.js";
 import PrivateRoute from "./PrivateRoute.js";
@@ -28,7 +27,6 @@ const AppRouter = () => (
           component={EditExpensePage}
           exact={true}
         />
-        <Route path="/help" component={HelpPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>
