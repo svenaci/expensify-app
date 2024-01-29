@@ -44,3 +44,13 @@
     padding-left: $s-size;
   }
 }
+
+.list-item--message {
+  align-items: center;
+  justify-content: center;
+  color: $grey;
+  padding: $m-size;
+  &:hover {
+    background: none;
+  }
+}
