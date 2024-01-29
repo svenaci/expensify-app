@@ -12,7 +12,7 @@
   border-top: none;
   display: flex;
   flex-direction: column;
-  color: $grey;
+  color: #333;
   padding: $s-size;
   text-decoration: none;
   transition: background 0.3s ease;
@@ -24,5 +24,23 @@
     justify-content: space-between;
     padding: $m-size;
     align-items: center;
+  }
+}
+
+.list-item__title {
+  margin: 0;
+  word-break: break-all;
+}
+
+.list-item__sub-title {
+  color: $grey;
+  font-size: $font-size-small;
+}
+
+.list-item__data {
+  margin: $s-size 0 0 0;
+  @media (min-width: $desktop-breakpoint) {
+    margin: 0;
+    padding-left: $s-size;
   }
 }
