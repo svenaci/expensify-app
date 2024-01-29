@@ -9,6 +9,7 @@ import "normalize.css/normalize.css";
 import "./styles/styles.scss";
 import "react-dates/lib/css/_datepicker.css";
 import { firebase } from "./firebase/firebase.js";
+import Loader from "./components/Loader.js";
 
 const store = configureStore();
 
@@ -27,7 +28,7 @@ const jsx = (
   </Provider>
 );
 
-ReactDOM.render(<p>Loading...</p>, document.getElementById("app"));
+ReactDOM.render(<Loader />, document.getElementById("app"));
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
